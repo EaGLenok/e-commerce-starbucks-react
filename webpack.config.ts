@@ -46,13 +46,23 @@ export default (env: EnvVariables): WebpackConfiguration => {
           exclude: /node_modules/,
         },
         {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: "file-loader",
+            },
+          ],
+        },
+        {
           test: /\.s[ac]ss$/i,
           use: [
-            // Creates `style` nodes from JS strings
             MiniCssExtractPlugin.loader,
-            // Translates CSS into CommonJS
-            "css-loader",
-            // Compiles Sass to CSS
+            {
+              loader: "css-loader",
+              options: {
+                modules: true,
+              },
+            },
             "sass-loader",
           ],
         },
