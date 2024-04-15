@@ -3,7 +3,7 @@ import logo from "../../assets/logo.png";
 import s from "./Header.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className="header">
       <div className={s.header_container}>

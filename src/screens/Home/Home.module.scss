@@ -36,3 +36,18 @@
   vertical-align: middle;
   padding-top: 100%;
 }
+.content_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  .content {
+    flex-wrap: wrap;
+    width: 70%;
+    height: 1000px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+}
