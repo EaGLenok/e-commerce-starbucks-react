@@ -27,8 +27,14 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
       onClick={onSelect}
     >
       <img src={imageUrl} height={200} width={200} alt={name} />
-      <p className={s.title_card}>{name}</p>
-      <p className={s.description_card}>{description}</p>
+      <div className={isSelected ? s.text_container_modify : s.text_container}>
+        <p className={isSelected ? s.title_card_modify : s.title_card}>
+          {name}
+        </p>
+        {isSelected ? undefined : (
+          <p className={s.description_card}>{description}</p>
+        )}
+      </div>
       {isSelected && (
         <div className={s.sizes_card}>
           {sizes.map((size, index) => (
@@ -46,7 +52,15 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
         </div>
       )}
       <div className={s.actions_card}>
-        <button className={s.add_to_cart}>Add to Basket</button>
+        {isSelected && (
+          <button
+            onClick={(event) => event.stopPropagation()}
+            className={s.add_to_cart}
+          >
+            Add to Basket
+          </button>
+        )}
+
         <p className={s.more_info}>More information</p>
       </div>
     </div>

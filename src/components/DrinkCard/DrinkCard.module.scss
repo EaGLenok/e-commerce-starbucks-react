@@ -17,23 +17,52 @@
 }
 
 .drink_card img {
-  margin-top: -100px; /* Отрицательный отступ для того, чтобы изображение выступало */
+  margin-top: -10px; /* Отрицательный отступ для того, чтобы изображение выступало */
   width: 200px;
-  height: auto; /* Масштабирование высоты для сохранения пропорций изображения */
+  height: 200px; /* Масштабирование высоты для сохранения пропорций изображения */
   border-radius: 20px; /* Если нужен закругленный верх у изображения */
   z-index: 2;
 }
 
 .drink_card_selected img {
-  margin-top: -100px;
+  margin-top: -10px;
 }
 
 .drink_card_selected {
   background: url("https://fastdecals.com/shop/images/thumbnails/600/300/detailed/25/louis-vuitton-green-tan-pattern-decal-sticker-16_corp-1.webp")
     no-repeat center/cover;
   transform: scale(1.05);
+  box-shadow: 0px 0px 21px 3px rgba(0, 0, 0, 0.3);
 }
 
+.text_container {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-items: flex-start;
+  flex-direction: column;
+  text-align: left;
+
+  .title_card {
+    font-size: 20px;
+    color: #989690;
+  }
+
+  .description_card {
+    color: #b6b6b1;
+  }
+}
+
+.text_container_modify {
+  height: 50px;
+  margin-bottom: 10px;
+  .title_card_modify {
+    text-align: center;
+    font-size: 27px;
+    color: white;
+    line-height: 25px;
+  }
+}
 .sizes_card {
   display: flex;
   width: 100%;
@@ -43,11 +72,42 @@
 }
 
 .sizes_card div {
+  margin-left: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 65px;
-  height: 25px;
+  width: 60px;
+  height: 20px;
+  p {
+    font-size: 12px;
+  }
+}
+
+.actions_card {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  button {
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 170px;
+    height: 46px;
+    border-radius: 46px;
+    border: none;
+    background-color: #e7e7e7e7;
+    font-size: 16px;
+    color: #8b8a84;
+  }
+
+  p {
+    position: absolute;
+    bottom: 10%;
+  }
 }
 
 .active {
@@ -58,13 +118,16 @@
 
 .no_active_size {
   color: white;
-  border-radius: 3px;
-  border: 1px solid white;
+  border-radius: 5px;
+  border: 1.3px solid white;
 }
 
 @keyframes fadeIn {
   0% {
     opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
   }
   100% {
     opacity: 1;
