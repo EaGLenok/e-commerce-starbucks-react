@@ -16,7 +16,8 @@
     "noEmit": false,
     "jsx": "react-jsx",
     "sourceMap": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "strictNullChecks": false
   },
   "include": ["src"]
 }

@@ -3,7 +3,12 @@ import logo from "../../assets/logo.png";
 import s from "./Header.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  isBasketOpen: boolean;
+  setBasketOpen: (open: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ isBasketOpen, setBasketOpen }) => {
   return (
     <div className="header">
       <div className={s.header_container}>
@@ -11,7 +16,7 @@ const Header: React.FC = () => {
           <img src={logo} height={250} width={250} alt="coffe-logo" />
         </div>
         <div className={s.navigation_container}>
-          <p>COFFE</p>
+          <p>COFFEE</p>
           <p>TEA</p>
           <p>MENU</p>
         </div>
@@ -24,7 +29,7 @@ const Header: React.FC = () => {
         </div>
         <div className={s.basket_container}>
           <p>MY BASKET</p>
-          <MenuIcon />
+          <MenuIcon onClick={() => setBasketOpen(!isBasketOpen)} />
         </div>
       </div>
     </div>

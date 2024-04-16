@@ -1,7 +1,7 @@
 .drink_card,
 .drink_card_selected {
   margin-left: 50px;
-  width: 280px;
+  width: 310px;
   height: 400px;
   border-radius: 40px;
   display: flex;
@@ -10,8 +10,8 @@
   justify-content: flex-start; /* Изменено для лучшей поддержки выступающего изображения */
   background-color: #e7e7e2; /* Default background */
   transition: background-color 0.3s ease,
-    transform 2s cubic-bezier(0.39, 0.575, 0.565, 1);
-  animation: fadeIn 2s ease forwards;
+    transform 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+  animation: fadeIn 0.3s ease;
   z-index: 1;
   overflow: visible; /* Позволяет изображению выходить за пределы карточки */
 }
@@ -26,13 +26,15 @@
 
 .drink_card_selected img {
   margin-top: -10px;
+  width: 200px;
+  height: 200px; /* Масштабирование высоты для сохранения пропорций изображения */
 }
-
 .drink_card_selected {
-  background: url("https://fastdecals.com/shop/images/thumbnails/600/300/detailed/25/louis-vuitton-green-tan-pattern-decal-sticker-16_corp-1.webp")
-    no-repeat center/cover;
+  background: linear-gradient(to top, #74936e, rgba(205, 214, 198, 0.4)),
+    url("https://static.vecteezy.com/system/resources/previews/008/128/761/original/green-tea-pattern-wallpaper-green-tea-doodle-matcha-pattern-free-vector.jpg")
+      no-repeat center/cover;
   transform: scale(1.05);
-  box-shadow: 0px 0px 21px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 21px 3px rgba(0, 0, 0, 0.4);
 }
 
 .text_container {

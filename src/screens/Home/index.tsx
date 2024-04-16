@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchDrinks } from "../../store/reducers/drinkSlice";
+import { addToBasket } from "../../store/reducers/basketSlice";
 import DrinkCard from "../../components/DrinkCard";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.drinksSlice);
-
-  const [selectedCard, setSelectedCard] = React.useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<string | null>(null);
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
@@ -23,8 +23,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="home">
-      <div className={s.circle_absolute}></div>
+    <div className={s.home}>
       <div className={s.title_container}>
         <h1 className={s.title}>
           The hottest hour <br />
@@ -42,6 +41,7 @@ const Home: React.FC = () => {
               imageUrl={el.imageUrl}
               isSelected={selectedCard === el.name}
               onSelect={() => handleSelectCard(el.name)}
+              addToBasket={() => dispatch(addToBasket({ ...el, count: 1 }))}
             />
           ))}
         </div>

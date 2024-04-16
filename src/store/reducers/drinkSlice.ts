@@ -7,6 +7,7 @@ interface DrinkItem {
   price: number;
   date_added: string;
   imageUrl: string;
+  count?: number;
 }
 
 interface DrinksState {
