@@ -1,0 +1,21 @@
+.basket_item {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  width: 230px;
+  height: 170px;
+  background-color: red;
+
+  .image_container {
+    margin: 0px;
+    img {
+      margin: 0px;
+    }
+  }
+}
+
+.item_details {
+  p {
+    color: white;
+  }
+}
