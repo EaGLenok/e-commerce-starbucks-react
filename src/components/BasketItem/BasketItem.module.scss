@@ -2,9 +2,9 @@
   margin-top: 25px;
   display: flex;
   flex-direction: row;
-  width: 230px;
+  width: 220px;
   height: 170px;
-  background-color: red;
+  background-color: transparent;
 
   .image_container {
     margin: 0px;
@@ -15,7 +15,53 @@
 }
 
 .item_details {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  h4 {
+    font-size: 20px;
+    max-width: 110px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: black;
+  }
+  h5 {
+    font-size: 17px;
+    color: #979797e7;
+  }
   p {
-    color: white;
+    font-size: 14px;
+    color: #b3b0b0e7;
+  }
+  .quantity_container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+    .item_count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px;
+      font-size: 16px;
+      width: 30px;
+      height: 30px;
+      border: 1px solid #e7e7e7e7;
+    }
+    button {
+      width: 30px;
+      height: 30px;
+      border-radius: 1px;
+      border: none;
+      padding: 0px 0px 5px 0px;
+    }
+  }
+}
+
+.remove_container {
+  p {
+    color: rgb(192, 2, 2);
   }
 }

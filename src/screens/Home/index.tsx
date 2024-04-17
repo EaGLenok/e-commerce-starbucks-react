@@ -1,3 +1,5 @@
+// home.tsx
+
 import React, { useState } from "react";
 import s from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -7,8 +9,10 @@ import DrinkCard from "../../components/DrinkCard";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+  const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const { items } = useAppSelector((state) => state.drinksSlice);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [selectedSize, setSelectedSize] = useState<string>(sizes[0]); // Добавляем состояние для
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
@@ -20,6 +24,10 @@ const Home: React.FC = () => {
     } else {
       setSelectedCard(name);
     }
+  };
+
+  const handleSelectSize = (size: string) => {
+    setSelectedSize(size);
   };
 
   return (
@@ -41,7 +49,12 @@ const Home: React.FC = () => {
               imageUrl={el.imageUrl}
               isSelected={selectedCard === el.name}
               onSelect={() => handleSelectCard(el.name)}
-              addToBasket={() => dispatch(addToBasket({ ...el, count: 1 }))}
+              addToBasket={() =>
+                dispatch(addToBasket({ ...el, count: 1, size: selectedSize }))
+              }
+              selectedSize={selectedSize}
+              onSelectSize={(size: string) => handleSelectSize(size)}
+              sizes={sizes}
             />
           ))}
         </div>

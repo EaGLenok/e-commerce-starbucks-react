@@ -1,3 +1,5 @@
+// basketSlice.ts
+
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DrinkItem {
@@ -7,6 +9,7 @@ interface DrinkItem {
   date_added: string;
   imageUrl: string;
   count: number;
+  size: string;
 }
 
 interface DrinksState {
@@ -22,11 +25,16 @@ export const basketSlice = createSlice({
   initialState,
   reducers: {
     addToBasket(state, action: PayloadAction<DrinkItem>) {
-      const existingItem = state.itemsBasket.find(
-        (itemsBasket) => itemsBasket.imageUrl === action.payload.imageUrl
+      const existingItemIndex = state.itemsBasket.findIndex(
+        (item) => item.imageUrl === action.payload.imageUrl
       );
-      if (existingItem) {
-        existingItem.count += 1;
+      if (existingItemIndex !== -1) {
+        const existingItem = state.itemsBasket[existingItemIndex];
+        const updatedItem = {
+          ...existingItem,
+          count: existingItem.count + 1,
+        };
+        state.itemsBasket.splice(existingItemIndex, 1, updatedItem);
       } else {
         state.itemsBasket.push({ ...action.payload, count: 1 });
       }

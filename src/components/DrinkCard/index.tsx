@@ -1,14 +1,6 @@
 import React from "react";
 import s from "./DrinkCard.module.scss";
 
-interface DrinkItem {
-  name: string;
-  description: string;
-  price: number;
-  date_added: string; // Убедитесь, что этот параметр есть в объектах
-  imageUrl: string;
-}
-
 interface DrinkCardProps {
   name: string;
   description: string;
@@ -16,7 +8,10 @@ interface DrinkCardProps {
   price: number;
   isSelected: boolean;
   onSelect: () => void;
-  addToBasket: (item: DrinkItem) => void; // Функция принимает объект DrinkItem
+  addToBasket: () => void;
+  selectedSize: string;
+  onSelectSize: (size: string) => void;
+  sizes: string[];
 }
 
 const DrinkCard: React.FC<DrinkCardProps> = ({
@@ -27,21 +22,10 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
   isSelected,
   onSelect,
   addToBasket,
+  selectedSize,
+  onSelectSize,
+  sizes,
 }) => {
-  const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
-  const [selectedSize, setSelectedSize] = React.useState<string>(sizes[0]);
-
-  const addToBasketFn = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    addToBasket({
-      name,
-      description,
-      imageUrl,
-      price,
-      date_added: new Date().toISOString(),
-    }); // Добавление date_added
-  };
-
   return (
     <div
       className={isSelected ? s.drink_card_selected : s.drink_card}
@@ -64,7 +48,7 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
               className={selectedSize === size ? s.active : s.no_active_size}
               onClick={(event: React.MouseEvent<HTMLDivElement>) => {
                 event.stopPropagation();
-                setSelectedSize(size);
+                onSelectSize(size);
               }}
             >
               <p>{size}</p>
@@ -75,7 +59,10 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
       <div className={s.actions_card}>
         {isSelected && (
           <button
-            onClick={addToBasketFn} // Использование addToBasketFn
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+              event.stopPropagation();
+              addToBasket();
+            }}
             className={s.add_to_cart}
           >
             Add to Basket
