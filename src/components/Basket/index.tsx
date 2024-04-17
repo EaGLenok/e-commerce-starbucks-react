@@ -1,9 +1,15 @@
 import React from "react";
 import s from "./Basket.module.scss";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { useAppSelector } from "../../store/hooks";
 import BasketItem from "../BasketItem";
+import CloseIcon from "@mui/icons-material/Close";
 
-const Basket: React.FC = () => {
+interface BasketProps {
+  isBasketOpen: boolean;
+  setBasketOpen: (open: boolean) => void;
+}
+
+const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
   const { itemsBasket } = useAppSelector((state) => state.basketSlice);
 
   const handlerStopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -31,7 +37,12 @@ const Basket: React.FC = () => {
           ))}
         </div>
       </div>
-      <div className={s.basket_close}></div>
+      <div className={s.basket_close}>
+        <CloseIcon
+          onClick={() => setBasketOpen(!isBasketOpen)}
+          color="action"
+        />
+      </div>
     </div>
   );
 };

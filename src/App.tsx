@@ -6,14 +6,14 @@ import s from "./App.module.scss";
 import Basket from "./components/Basket";
 
 function App() {
-  const [isBasketOpen, setBasketOpen] = React.useState(false); // Перемещено сюда
+  const [isBasketOpen, setBasketOpen] = React.useState(false);
 
   return (
     <div className="App">
       {isBasketOpen && (
         <div className={s.overlay} onClick={() => setBasketOpen(false)}>
           <div className={s.basket_container}>
-            <Basket />
+            <Basket isBasketOpen={isBasketOpen} setBasketOpen={setBasketOpen} />
           </div>
         </div>
       )}
