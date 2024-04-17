@@ -1,6 +1,13 @@
 import React from "react";
 import s from "./BasketItem.module.scss";
 
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import {
+  removeFromBasket,
+  IncrementItem,
+  DecrementItem,
+} from "../../store/reducers/basketSlice";
+
 interface BasketItemProps {
   name: string;
   description: string;
@@ -17,25 +24,61 @@ const BasketItem: React.FC<BasketItemProps> = ({
   price,
   date_added,
   imageUrl,
-  count,
   selectedSize,
 }) => {
-  const [itemCount, setItemCount] = React.useState(count);
+  const { count } = useAppSelector((state) =>
+    state.basketSlice.itemsBasket.find((item) => item.imageUrl === imageUrl)
+  );
+  const dispatch = useAppDispatch();
 
   const reducedPrice = (): number => {
-    const result = price * itemCount;
+    const result = price * count;
     const fixedNumber = parseFloat(result.toFixed(2));
     return fixedNumber;
   };
 
   const handleIncrement = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setItemCount(itemCount + 1);
+    dispatch(
+      IncrementItem({
+        name,
+        description,
+        price,
+        date_added,
+        imageUrl,
+        count,
+        size: selectedSize,
+      })
+    );
   };
 
   const handleDecrement = (event: React.MouseEvent<HTMLButtonElement>) => {
-    if (itemCount > 1) {
-      setItemCount(itemCount - 1);
+    if (count > 1) {
+      dispatch(
+        DecrementItem({
+          name,
+          description,
+          price,
+          date_added,
+          imageUrl,
+          count,
+          size: selectedSize,
+        })
+      );
     }
+  };
+
+  const handleRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(
+      removeFromBasket({
+        name,
+        description,
+        price,
+        date_added,
+        imageUrl,
+        count,
+        size: selectedSize,
+      })
+    );
   };
 
   return (
@@ -55,7 +98,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
             >
               -
             </button>
-            <p className={s.item_count}>{itemCount}</p>
+            <p className={s.item_count}>{count}</p>
             <button
               onClick={(e) => handleIncrement(e)}
               className={s.button_quantity}
@@ -65,7 +108,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
           </div>
 
           <div className={s.remove_container}>
-            <p>Remove</p>
+            <button onClick={(e) => handleRemove(e)}>Remove</button>
           </div>
         </div>
       </div>

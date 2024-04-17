@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const { items } = useAppSelector((state) => state.drinksSlice);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string>(sizes[0]); // Добавляем состояние для
+  const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
 
   React.useEffect(() => {
     dispatch(fetchDrinks());

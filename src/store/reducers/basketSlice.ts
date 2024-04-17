@@ -39,9 +39,51 @@ export const basketSlice = createSlice({
         state.itemsBasket.push({ ...action.payload, count: 1 });
       }
     },
+    removeFromBasket(state, action: PayloadAction<DrinkItem>) {
+      const indexToRemove = state.itemsBasket.findIndex(
+        (item) => item.imageUrl === action.payload.imageUrl
+      );
+
+      if (indexToRemove !== -1) {
+        const updatedBasket = [
+          ...state.itemsBasket.slice(0, indexToRemove),
+          ...state.itemsBasket.slice(indexToRemove + 1),
+        ];
+        state.itemsBasket = updatedBasket;
+      }
+    },
+    IncrementItem(state, action: PayloadAction<DrinkItem>) {
+      const existingItemIndex = state.itemsBasket.findIndex(
+        (item) => item.imageUrl === action.payload.imageUrl
+      );
+      if (existingItemIndex !== -1) {
+        const existingItem = state.itemsBasket[existingItemIndex];
+        const updatedItem = {
+          ...existingItem,
+          count: existingItem.count + 1,
+        };
+        state.itemsBasket.splice(existingItemIndex, 1, updatedItem); // Обновляем элемент в массиве
+      }
+    },
+    DecrementItem(state, action: PayloadAction<DrinkItem>) {
+      const existingItemIndex = state.itemsBasket.findIndex(
+        (item) => item.imageUrl === action.payload.imageUrl
+      );
+      if (existingItemIndex !== -1) {
+        const existingItem = state.itemsBasket[existingItemIndex];
+        if (existingItem.count > 1) {
+          const updatedItem = {
+            ...existingItem,
+            count: existingItem.count - 1,
+          };
+          state.itemsBasket.splice(existingItemIndex, 1, updatedItem); // Обновляем элемент в массиве
+        }
+      }
+    },
   },
 });
 
-export const { addToBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket, IncrementItem, DecrementItem } =
+  basketSlice.actions;
 
 export default basketSlice.reducer;

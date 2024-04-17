@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Basket.module.scss";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import BasketItem from "../BasketItem";
 
 const Basket: React.FC = () => {
