@@ -54,6 +54,10 @@ export default (env: EnvVariables): WebpackConfiguration => {
           ],
         },
         {
+          test: /\.svg$/,
+          loader: "svg-inline-loader",
+        },
+        {
           test: /\.s[ac]ss$/i,
           use: [
             MiniCssExtractPlugin.loader,

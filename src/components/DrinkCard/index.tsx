@@ -1,5 +1,6 @@
 import React from "react";
 import s from "./DrinkCard.module.scss";
+import { Link } from "react-router-dom";
 
 interface DrinkCardProps {
   name: string;
@@ -68,7 +69,9 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
             Add to Basket
           </button>
         )}
-        <p className={s.more_info}>More information</p>
+        <Link to={`/${name}`}>
+          <p className={s.more_info}>More information</p>
+        </Link>
       </div>
     </div>
   );

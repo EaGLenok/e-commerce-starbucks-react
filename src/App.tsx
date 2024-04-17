@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./screens/Home";
 import s from "./App.module.scss";
 import Basket from "./components/Basket";
+import Drink from "./screens/Drink";
 
 function App() {
   const [isBasketOpen, setBasketOpen] = React.useState(false);
@@ -21,6 +22,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:name" element={<Drink />} />
         </Routes>
       </div>
     </div>
