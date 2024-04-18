@@ -39,7 +39,6 @@ export default (env: EnvVariables): WebpackConfiguration => {
     ],
     module: {
       rules: [
-        // ПОРЯДОК ВАЖЕН!!!!
         {
           test: /\.tsx?$/,
           use: "ts-loader",
@@ -76,12 +75,11 @@ export default (env: EnvVariables): WebpackConfiguration => {
       extensions: [".tsx", ".ts", ".js"],
     },
     devtool: isDev ? "inline-source-map" : false,
-    devServer: isDev
-      ? ({
-          port: port,
-          open: true,
-        } as DevServerConfiguration)
-      : undefined,
+    devServer: {
+      port: port,
+      open: true,
+      historyApiFallback: true, // Добавляем эту опцию для поддержки HTML5 History API
+    } as DevServerConfiguration,
   };
 
   return config;

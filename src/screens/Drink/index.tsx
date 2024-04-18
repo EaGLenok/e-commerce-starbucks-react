@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppSelector } from "../../store/hooks";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { fetchSingleDrink } from "../../store/reducers/singleDrinkSlice";
 
 const Drink: React.FC = () => {
-  const { name } = useParams<{ name: string }>();
-  // ТЕБЕ НАДО СДЕЛАЙ РЕДЮСЕР, ЧТОБЫ ОН ФЕТЧИЛ ПО НЕЙМУ НАПИТОК, А ПОТОМ ЧЕРЕЗ СЕЛЕКТОР БРАТЬ ЕГО СЮДА
-  const drinks = useAppSelector((state) => state.drinksSlice.items);
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
 
-  const drink = drinks.find((item) => item.name === name);
+  useEffect(() => {
+    dispatch(fetchSingleDrink({ id: parseInt(id) }));
+  }, [dispatch, id]);
 
-  if (!drink) {
+  const { item: drinks, status } = useAppSelector(
+    (state) => state.singleDrinkSlice
+  );
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "failed" || !drinks || drinks.length === 0) {
     return <div>N/A</div>;
   }
 
-  return (
-    <div>
-      <h2>{drink.name}</h2>
-      <p>{drink.description}</p>
-      {/* Остальные данные о напитке */}
-    </div>
-  );
+  const drink = drinks[0];
+
+  return <div>.</div>;
 };
 
 export default Drink;

@@ -1,8 +1,10 @@
 import React from "react";
 import s from "./DrinkCard.module.scss";
 import { Link } from "react-router-dom";
+import TypeDrink from "../TypeDrink";
 
 interface DrinkCardProps {
+  id: number;
   name: string;
   description: string;
   imageUrl: string;
@@ -11,11 +13,12 @@ interface DrinkCardProps {
   onSelect: () => void;
   addToBasket: () => void;
   selectedSize: string;
-  onSelectSize: (size: string) => void;
+  onSelectSize: (size: string, event: any) => void;
   sizes: string[];
 }
 
 const DrinkCard: React.FC<DrinkCardProps> = ({
+  id,
   name,
   description,
   imageUrl,
@@ -42,20 +45,11 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
         )}
       </div>
       {isSelected && (
-        <div className={s.sizes_card}>
-          {sizes.map((size, index) => (
-            <div
-              key={index}
-              className={selectedSize === size ? s.active : s.no_active_size}
-              onClick={(event: React.MouseEvent<HTMLDivElement>) => {
-                event.stopPropagation();
-                onSelectSize(size);
-              }}
-            >
-              <p>{size}</p>
-            </div>
-          ))}
-        </div>
+        <TypeDrink
+          selectedSize={selectedSize}
+          onSelectSize={onSelectSize}
+          sizes={sizes}
+        />
       )}
       <div className={s.actions_card}>
         {isSelected && (
@@ -69,7 +63,7 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
             Add to Basket
           </button>
         )}
-        <Link to={`/${name}`}>
+        <Link to={`/${id}`}>
           <p className={s.more_info}>More information</p>
         </Link>
       </div>

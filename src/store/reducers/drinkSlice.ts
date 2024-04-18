@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface DrinkItem {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -22,7 +23,7 @@ const initialState: DrinksState = {
 
 export const fetchDrinks = createAsyncThunk("drinks/fetchDrinks", async () => {
   const response = await axios.get(
-    "https://65bb702652189914b5bc21bd.mockapi.io/starbucks-items"
+    `https://65bb702652189914b5bc21bd.mockapi.io/starbucks-items/`
   );
   return response.data;
 });

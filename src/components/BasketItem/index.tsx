@@ -9,6 +9,7 @@ import {
 } from "../../store/reducers/basketSlice";
 
 interface BasketItemProps {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -19,6 +20,7 @@ interface BasketItemProps {
 }
 
 const BasketItem: React.FC<BasketItemProps> = ({
+  id,
   name,
   description,
   price,
@@ -27,7 +29,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
   selectedSize,
 }) => {
   const { count } = useAppSelector((state) =>
-    state.basketSlice.itemsBasket.find((item) => item.imageUrl === imageUrl)
+    state.basketSlice.itemsBasket.find((item) => item.id === id)
   );
   const dispatch = useAppDispatch();
 
@@ -40,6 +42,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
   const handleIncrement = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(
       IncrementItem({
+        id,
         name,
         description,
         price,
@@ -55,6 +58,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
     if (count > 1) {
       dispatch(
         DecrementItem({
+          id,
           name,
           description,
           price,
@@ -70,6 +74,7 @@ const BasketItem: React.FC<BasketItemProps> = ({
   const handleRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(
       removeFromBasket({
+        id,
         name,
         description,
         price,

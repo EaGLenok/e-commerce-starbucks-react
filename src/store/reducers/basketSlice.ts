@@ -1,8 +1,7 @@
-// basketSlice.ts
-
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DrinkItem {
+  id: number;
   name: string;
   description: string;
   price: number;
@@ -26,7 +25,7 @@ export const basketSlice = createSlice({
   reducers: {
     addToBasket(state, action: PayloadAction<DrinkItem>) {
       const existingItemIndex = state.itemsBasket.findIndex(
-        (item) => item.imageUrl === action.payload.imageUrl
+        (item) => item.id === action.payload.id
       );
       if (existingItemIndex !== -1) {
         const existingItem = state.itemsBasket[existingItemIndex];
@@ -41,7 +40,7 @@ export const basketSlice = createSlice({
     },
     removeFromBasket(state, action: PayloadAction<DrinkItem>) {
       const indexToRemove = state.itemsBasket.findIndex(
-        (item) => item.imageUrl === action.payload.imageUrl
+        (item) => item.id === action.payload.id
       );
 
       if (indexToRemove !== -1) {
@@ -54,7 +53,7 @@ export const basketSlice = createSlice({
     },
     IncrementItem(state, action: PayloadAction<DrinkItem>) {
       const existingItemIndex = state.itemsBasket.findIndex(
-        (item) => item.imageUrl === action.payload.imageUrl
+        (item) => item.id === action.payload.id
       );
       if (existingItemIndex !== -1) {
         const existingItem = state.itemsBasket[existingItemIndex];
@@ -67,7 +66,7 @@ export const basketSlice = createSlice({
     },
     DecrementItem(state, action: PayloadAction<DrinkItem>) {
       const existingItemIndex = state.itemsBasket.findIndex(
-        (item) => item.imageUrl === action.payload.imageUrl
+        (item) => item.id === action.payload.id
       );
       if (existingItemIndex !== -1) {
         const existingItem = state.itemsBasket[existingItemIndex];

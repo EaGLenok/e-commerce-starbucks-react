@@ -33,6 +33,7 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
           {itemsBasket.length > 0 &&
             itemsBasket.map((el, index) => (
               <BasketItem
+                id={el.id}
                 name={el.name}
                 description={el.description}
                 price={el.price}

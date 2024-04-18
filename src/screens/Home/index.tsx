@@ -1,5 +1,3 @@
-// home.tsx
-
 import React, { useState } from "react";
 import s from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -11,22 +9,23 @@ const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const { items } = useAppSelector((state) => state.drinksSlice);
-  const [selectedCard, setSelectedCard] = useState<string | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
   }, [dispatch]);
 
-  const handleSelectCard = (name: string) => {
-    if (selectedCard === name) {
+  const handleSelectCard = (id: number) => {
+    if (selectedCard === id) {
       setSelectedCard(null);
     } else {
-      setSelectedCard(name);
+      setSelectedCard(id);
     }
   };
 
-  const handleSelectSize = (size: string) => {
+  const handleSelectSize = (size: string, event: any) => {
+    event.stopPropagation();
     setSelectedSize(size);
   };
 
@@ -43,17 +42,20 @@ const Home: React.FC = () => {
           {items.map((el, index) => (
             <DrinkCard
               key={el.name + index}
+              id={el.id}
               name={el.name}
               description={el.description}
               price={el.price}
               imageUrl={el.imageUrl}
-              isSelected={selectedCard === el.name}
-              onSelect={() => handleSelectCard(el.name)}
+              isSelected={selectedCard === el.id}
+              onSelect={() => handleSelectCard(el.id)}
               addToBasket={() =>
                 dispatch(addToBasket({ ...el, count: 1, size: selectedSize }))
               }
               selectedSize={selectedSize}
-              onSelectSize={(size: string) => handleSelectSize(size)}
+              onSelectSize={(size: string, event: any) =>
+                handleSelectSize(size, event)
+              }
               sizes={sizes}
             />
           ))}
