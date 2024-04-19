@@ -12,9 +12,6 @@ interface DrinkCardProps {
   isSelected: boolean;
   onSelect: () => void;
   addToBasket: () => void;
-  selectedSize: string;
-  onSelectSize: (size: string, event: any) => void;
-  sizes: string[];
 }
 
 const DrinkCard: React.FC<DrinkCardProps> = ({
@@ -26,9 +23,6 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
   isSelected,
   onSelect,
   addToBasket,
-  selectedSize,
-  onSelectSize,
-  sizes,
 }) => {
   return (
     <div
@@ -44,13 +38,7 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
           <p className={s.description_card}>{description}</p>
         )}
       </div>
-      {isSelected && (
-        <TypeDrink
-          selectedSize={selectedSize}
-          onSelectSize={onSelectSize}
-          sizes={sizes}
-        />
-      )}
+      {isSelected && <TypeDrink />}
       <div className={s.actions_card}>
         {isSelected && (
           <button

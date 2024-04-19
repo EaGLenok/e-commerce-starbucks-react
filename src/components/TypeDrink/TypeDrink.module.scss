@@ -30,3 +30,13 @@
   border-radius: 5px;
   border: 1.3px solid white;
 }
+
+.active_page {
+  border-radius: 3px;
+  color: white;
+  background-color: rgb(173, 211, 235);
+}
+
+.no_active_size_page {
+  border: 1px solid white;
+}

@@ -7,10 +7,9 @@ import DrinkCard from "../../components/DrinkCard";
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
-  const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const { items } = useAppSelector((state) => state.drinksSlice);
+  const { selectedSize } = useAppSelector((state) => state.sizesSlice);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string>(sizes[0]);
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
@@ -22,11 +21,6 @@ const Home: React.FC = () => {
     } else {
       setSelectedCard(id);
     }
-  };
-
-  const handleSelectSize = (size: string, event: any) => {
-    event.stopPropagation();
-    setSelectedSize(size);
   };
 
   return (
@@ -52,11 +46,6 @@ const Home: React.FC = () => {
               addToBasket={() =>
                 dispatch(addToBasket({ ...el, count: 1, size: selectedSize }))
               }
-              selectedSize={selectedSize}
-              onSelectSize={(size: string, event: any) =>
-                handleSelectSize(size, event)
-              }
-              sizes={sizes}
             />
           ))}
         </div>

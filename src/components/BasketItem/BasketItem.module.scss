@@ -61,7 +61,10 @@
 }
 
 .remove_container {
-  p {
-    color: rgb(192, 2, 2);
+  button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: red;
   }
 }

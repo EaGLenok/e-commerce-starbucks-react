@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Basket.module.scss";
 import { useAppSelector } from "../../store/hooks";
 import BasketItem from "../BasketItem";
@@ -13,14 +13,20 @@ interface BasketProps {
 const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
   const { itemsBasket } = useAppSelector((state) => state.basketSlice);
 
-  const handlerStopPropagation = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handlerStopPropagation = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
     event.stopPropagation();
+  };
+
+  const onCloseFn = () => {
+    setBasketOpen(!isBasketOpen);
   };
 
   return (
     <div
       onClick={(e) => handlerStopPropagation(e)}
-      className={s.basket_container}
+      className={`${s.basket_container} ${isBasketOpen ? s.open : s.closed}`}
     >
       {itemsBasket.length === 0 && (
         <div className={s.empty_basket}>
@@ -47,10 +53,7 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
         </div>
       </div>
       <div className={s.basket_close}>
-        <CloseIcon
-          onClick={() => setBasketOpen(!isBasketOpen)}
-          color="action"
-        />
+        <CloseIcon onClick={onCloseFn} color="action" />
       </div>
     </div>
   );

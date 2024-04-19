@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../assets/logo.png";
 import s from "./Header.module.scss";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   isBasketOpen: boolean;
@@ -9,11 +10,22 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isBasketOpen, setBasketOpen }) => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate("/");
+  };
   return (
     <div className="header">
       <div className={s.header_container}>
         <div className="logo_container">
-          <img src={logo} height={250} width={250} alt="coffe-logo" />
+          <img
+            onClick={handleLogoClick}
+            src={logo}
+            height={250}
+            width={250}
+            alt="coffe-logo"
+          />
         </div>
         <div className={s.navigation_container}>
           <p>COFFEE</p>
