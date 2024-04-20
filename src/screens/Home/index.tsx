@@ -27,7 +27,7 @@ const Home: React.FC = () => {
     <div className={s.home}>
       <div className={s.title_container}>
         <h1 className={s.title}>
-          The hottest hour <br />
+          The hottest time <br />
           of the year
         </h1>
       </div>
