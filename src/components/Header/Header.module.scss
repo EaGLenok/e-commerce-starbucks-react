@@ -14,11 +14,19 @@
   flex-direction: row;
   justify-content: space-between;
   height: 200px;
+
   width: 100%;
 
+  .logo_container {
+    margin-left: 50px;
+  }
+
   .search_container {
-    width: 600px;
-    border-bottom: 1px solid black;
+    width: 460px;
+    height: 44px;
+    border-radius: 45px;
+    border: 1px solid black;
+    padding-left: 10px;
 
     input {
       color: black;
@@ -26,10 +34,10 @@
       overflow: none;
       border: none;
       background-color: transparent;
-      height: 40px;
-      width: 600px;
+      height: 44px;
+      width: 460px;
       &::placeholder {
-        color: rgba(190, 190, 190, 0.733);
+        color: black;
       }
     }
   }

@@ -19,8 +19,6 @@ const Drink: React.FC = () => {
     (state) => state.singleDrinkSlice
   );
 
-  const objectToAdd = { ...drinks, count: 1, size: selectedSize };
-
   const addToBasketFn = () => {
     dispatch(
       addToBasket({

@@ -29,7 +29,7 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
       className={isSelected ? s.drink_card_selected : s.drink_card}
       onClick={onSelect}
     >
-      <img src={imageUrl} height={200} width={200} alt={name} />
+      <img src={imageUrl} alt={name} />
       <div className={isSelected ? s.text_container_modify : s.text_container}>
         <p className={isSelected ? s.title_card_modify : s.title_card}>
           {name}
@@ -51,7 +51,7 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
             Add to Basket
           </button>
         )}
-        <Link to={`/${id}`}>
+        <Link className={s.more_info} to={`/${id}`}>
           <p className={s.more_info}>More information</p>
         </Link>
       </div>

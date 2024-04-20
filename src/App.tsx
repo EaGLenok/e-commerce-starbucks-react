@@ -10,7 +10,7 @@ function App() {
   const [isBasketOpen, setBasketOpen] = React.useState(false);
 
   return (
-    <div className="App">
+    <div className={s.app}>
       {isBasketOpen && (
         <div className={s.overlay} onClick={() => setBasketOpen(false)}>
           <div className={s.basket_container}>
