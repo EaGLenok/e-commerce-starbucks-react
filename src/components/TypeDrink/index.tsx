@@ -2,7 +2,7 @@ import React from "react";
 import s from "./TypeDrink.module.scss";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectSize } from "../../store/reducers/sizeSlice";
+import { selectSize } from "../../store/reducers/sizeAndCountSlice";
 
 interface TypeDrinkProps {
   isDrinkPage?: boolean;

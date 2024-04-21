@@ -2,14 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import drinksSlice from "./reducers/drinkSlice";
 import basketSlice from "./reducers/basketSlice";
 import singleDrinkSlice from "./reducers/singleDrinkSlice";
-import sizesSlice from "./reducers/sizeSlice";
+import sizeAndCountSlice from "./reducers/sizeAndCountSlice";
 
 export const store = configureStore({
   reducer: {
     drinksSlice,
     basketSlice,
     singleDrinkSlice,
-    sizesSlice,
+    sizeAndCountSlice,
   },
 });
 

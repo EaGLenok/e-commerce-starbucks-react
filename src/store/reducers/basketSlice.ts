@@ -5,7 +5,6 @@ interface DrinkItem {
   name: string;
   description: string;
   price: number;
-  date_added: string;
   imageUrl: string;
   count: number;
   size: string;

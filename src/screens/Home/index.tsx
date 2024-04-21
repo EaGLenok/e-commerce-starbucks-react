@@ -8,7 +8,9 @@ import DrinkCard from "../../components/DrinkCard";
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.drinksSlice);
-  const { selectedSize } = useAppSelector((state) => state.sizesSlice);
+  const { selectedSize, count } = useAppSelector(
+    (state) => state.sizeAndCountSlice
+  );
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   React.useEffect(() => {
@@ -44,7 +46,7 @@ const Home: React.FC = () => {
               isSelected={selectedCard === el.id}
               onSelect={() => handleSelectCard(el.id)}
               addToBasket={() =>
-                dispatch(addToBasket({ ...el, count: 1, size: selectedSize }))
+                dispatch(addToBasket({ ...el, count, size: selectedSize }))
               }
             />
           ))}
