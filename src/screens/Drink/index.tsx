@@ -54,7 +54,7 @@ const Drink: React.FC = () => {
                 height={60}
                 width={60}
                 src={drink.imageUrl}
-                alt="Drink Image"
+                alt="Drink Images"
               />
             </div>
           </div>
