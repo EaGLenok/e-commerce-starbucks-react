@@ -11,19 +11,24 @@ function App() {
 
   return (
     <div className={s.app}>
-      {isBasketOpen && (
-        <div className={s.overlay} onClick={() => setBasketOpen(false)}>
-          <div className={s.basket_container}>
-            <Basket isBasketOpen={isBasketOpen} setBasketOpen={setBasketOpen} />
+      <div className={s.app_container}>
+        {isBasketOpen && (
+          <div className={s.overlay} onClick={() => setBasketOpen(false)}>
+            <div className={s.basket_container}>
+              <Basket
+                isBasketOpen={isBasketOpen}
+                setBasketOpen={setBasketOpen}
+              />
+            </div>
           </div>
+        )}
+        <Header isBasketOpen={isBasketOpen} setBasketOpen={setBasketOpen} />
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<Drink />} />
+          </Routes>
         </div>
-      )}
-      <Header isBasketOpen={isBasketOpen} setBasketOpen={setBasketOpen} />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:id" element={<Drink />} />
-        </Routes>
       </div>
     </div>
   );

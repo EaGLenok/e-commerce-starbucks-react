@@ -13,7 +13,6 @@ interface BasketItemProps {
   name: string;
   description: string;
   price: number;
-  date_added: string;
   imageUrl: string;
   count: number;
   selectedSize: string;
@@ -24,7 +23,6 @@ const BasketItem: React.FC<BasketItemProps> = ({
   name,
   description,
   price,
-  date_added,
   imageUrl,
   selectedSize,
 }) => {
@@ -46,7 +44,6 @@ const BasketItem: React.FC<BasketItemProps> = ({
         name,
         description,
         price,
-        date_added,
         imageUrl,
         count,
         size: selectedSize,
@@ -62,7 +59,6 @@ const BasketItem: React.FC<BasketItemProps> = ({
           name,
           description,
           price,
-          date_added,
           imageUrl,
           count,
           size: selectedSize,
@@ -78,7 +74,6 @@ const BasketItem: React.FC<BasketItemProps> = ({
         name,
         description,
         price,
-        date_added,
         imageUrl,
         count,
         size: selectedSize,

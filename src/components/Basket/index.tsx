@@ -43,7 +43,6 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
                 name={el.name}
                 description={el.description}
                 price={el.price}
-                date_added={el.date_added}
                 imageUrl={el.imageUrl}
                 count={el.count}
                 selectedSize={el.size}

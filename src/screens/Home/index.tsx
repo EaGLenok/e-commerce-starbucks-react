@@ -11,19 +11,10 @@ const Home: React.FC = () => {
   const { selectedSize, count } = useAppSelector(
     (state) => state.sizeAndCountSlice
   );
-  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
   }, [dispatch]);
-
-  const handleSelectCard = (id: number) => {
-    if (selectedCard === id) {
-      setSelectedCard(null);
-    } else {
-      setSelectedCard(id);
-    }
-  };
 
   return (
     <div className={s.home}>
@@ -43,8 +34,6 @@ const Home: React.FC = () => {
               description={el.description}
               price={el.price}
               imageUrl={el.imageUrl}
-              isSelected={selectedCard === el.id}
-              onSelect={() => handleSelectCard(el.id)}
               addToBasket={() =>
                 dispatch(addToBasket({ ...el, count, size: selectedSize }))
               }

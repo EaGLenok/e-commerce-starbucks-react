@@ -9,7 +9,7 @@ import s from "./Drink.module.scss";
 const Drink: React.FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { selectedSize } = useAppSelector((state) => state.sizesSlice);
+  const { selectedSize } = useAppSelector((state) => state.sizeAndCountSlice);
 
   useEffect(() => {
     dispatch(fetchSingleDrink({ id: parseInt(id) }));

@@ -11,7 +11,7 @@ interface TypeDrinkProps {
 const TypeDrink: React.FC<TypeDrinkProps> = ({ isDrinkPage }) => {
   const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const dispatch = useAppDispatch();
-  const { selectedSize } = useAppSelector((state) => state.sizesSlice);
+  const { selectedSize } = useAppSelector((state) => state.sizeAndCountSlice);
 
   const activeClass = isDrinkPage ? s.active_page : s.active;
   const noActiveSizeClass = isDrinkPage

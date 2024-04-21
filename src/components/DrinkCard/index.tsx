@@ -9,8 +9,6 @@ interface DrinkCardProps {
   description: string;
   imageUrl: string;
   price: number;
-  isSelected: boolean;
-  onSelect: () => void;
   addToBasket: () => void;
 }
 
@@ -20,40 +18,29 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
   description,
   imageUrl,
   price,
-  isSelected,
-  onSelect,
   addToBasket,
 }) => {
   return (
-    <div
-      className={isSelected ? s.drink_card_selected : s.drink_card}
-      onClick={onSelect}
-    >
-      <img src={imageUrl} alt={name} />
-      <div className={isSelected ? s.text_container_modify : s.text_container}>
-        <p className={isSelected ? s.title_card_modify : s.title_card}>
-          {name}
-        </p>
-        {isSelected ? undefined : (
-          <p className={s.description_card}>{description}</p>
-        )}
+    <div className={s.drink_card}>
+      <Link className={s.more_info} to={`/${id}`}>
+        <div className={s.img_container}>
+          <img src={imageUrl} alt={name} />
+        </div>
+      </Link>
+      <div className={s.text_container}>
+        <p className={s.title_card}>{name}</p>
+        <p className={s.description_card}>{description}</p>
       </div>
-      {isSelected && <TypeDrink />}
       <div className={s.actions_card}>
-        {isSelected && (
-          <button
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-              event.stopPropagation();
-              addToBasket();
-            }}
-            className={s.add_to_cart}
-          >
-            Add to Basket
-          </button>
-        )}
-        <Link className={s.more_info} to={`/${id}`}>
-          <p className={s.more_info}>More information</p>
-        </Link>
+        <button
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+            event.stopPropagation();
+            addToBasket();
+          }}
+          className={s.add_to_cart}
+        >
+          Add to Basket
+        </button>
       </div>
     </div>
   );

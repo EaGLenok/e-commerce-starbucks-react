@@ -11,3 +11,10 @@
 .app {
   position: relative;
 }
+.app_container {
+  background: url("https://i.imgur.com/j2IYVEg.png") no-repeat center center;
+  background-size: 100% 100%; /* Растягиваем изображение по ширине, сохраняя пропорции по высоте */
+  border: 100px solid white;
+  border-radius: 100px;
+  padding: 20px;
+}
