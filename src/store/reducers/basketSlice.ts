@@ -30,11 +30,14 @@ export const basketSlice = createSlice({
         const existingItem = state.itemsBasket[existingItemIndex];
         const updatedItem = {
           ...existingItem,
-          count: existingItem.count + 1,
+          count: existingItem.count + action.payload.count,
         };
         state.itemsBasket.splice(existingItemIndex, 1, updatedItem);
       } else {
-        state.itemsBasket.push({ ...action.payload, count: 1 });
+        state.itemsBasket.push({
+          ...action.payload,
+          count: action.payload.count,
+        });
       }
     },
     removeFromBasket(state, action: PayloadAction<DrinkItem>) {

@@ -8,9 +8,6 @@ import DrinkCard from "../../components/DrinkCard";
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.drinksSlice);
-  const { selectedSize, count } = useAppSelector(
-    (state) => state.sizeAndCountSlice
-  );
 
   React.useEffect(() => {
     dispatch(fetchDrinks());
@@ -32,11 +29,8 @@ const Home: React.FC = () => {
               id={el.id}
               name={el.name}
               description={el.description}
-              price={el.price}
+              priceSize={el.price_per_size}
               imageUrl={el.imageUrl}
-              addToBasket={() =>
-                dispatch(addToBasket({ ...el, count, size: selectedSize }))
-              }
             />
           ))}
         </div>

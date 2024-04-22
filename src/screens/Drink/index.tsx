@@ -20,13 +20,22 @@ const Drink: React.FC = () => {
   );
 
   const addToBasketFn = () => {
-    dispatch(
-      addToBasket({
-        ...drink,
-        count: 1,
-        size: selectedSize,
-      })
-    );
+    const drink = drinks[0];
+    const selectedPrice = drink.priceSize[selectedSize];
+    if (!selectedPrice) {
+      console.error("Selected size price not found.");
+      return;
+    }
+    const drinkItemToAdd = {
+      id: drink.id,
+      name: drink.name,
+      description: drink.description,
+      price: selectedPrice,
+      imageUrl: drink.imageUrl,
+      count: 1,
+      size: selectedSize,
+    };
+    dispatch(addToBasket(drinkItemToAdd));
   };
 
   if (status === "loading") {
@@ -41,44 +50,28 @@ const Drink: React.FC = () => {
 
   return (
     <div className={s.drink}>
-      <div className={s.drink_container}>
-        <div className={s.drink_main_container}>
-          <div className={s.drink_description}>
-            <div className={s.drink_description_container}>
-              <h1 className={s.drink_title}>{drink.name}</h1>
-              <p className={s.drink_description_text}>{drink.description}</p>
-            </div>
-            <div className={s.drink_small_img_container}>
-              <img
-                className={s.drink_small_img}
-                height={60}
-                width={60}
-                src={drink.imageUrl}
-                alt="Drink Images"
-              />
-            </div>
-          </div>
-          <div className={s.drink_circel_container}>
-            <div className={s.drink_circel_info}>
-              <img
-                className={s.drink_medium_img}
-                height={250}
-                width={250}
-                src={drink.imageUrl}
-                alt="Drink Image"
-              />
-              <p className={s.drink_price}>$ {drink.price}</p>
-            </div>
-          </div>
-          <div className={s.drink_actions_container}>
-            <div className={s.drink_sizes}>
-              <TypeDrink isDrinkPage={true} />
-            </div>
-            <div className={s.drink_add_button}>
-              <button onClick={() => addToBasketFn()}>ADD TO BASKET</button>
-            </div>
+      <div className={s.drink_main_container}>
+        <div className={s.drink_image_container}>
+          <img
+            src={drink.imageUrl}
+            alt={drink.name}
+            className={s.drink_image}
+          />
+        </div>
+        <div className={s.drink_description_container}>
+          <p>{drink.description}</p>
+        </div>
+        <div className={s.drink_size_current}></div>
+      </div>
+      <div className={s.drink_actions_container}>
+        <div className={s.drink_size_container}>
+          <div className={s.drink_sizes}>
+            <TypeDrink />
+            <button>123</button>
+            <p>{drink.priceSize[selectedSize]}</p>
           </div>
         </div>
+        <div className={s.drink_choose_container}></div>
       </div>
     </div>
   );

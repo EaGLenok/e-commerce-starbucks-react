@@ -12,9 +12,9 @@ interface BasketItemProps {
   id: number;
   name: string;
   description: string;
-  price: number;
   imageUrl: string;
   count: number;
+  price: number;
   selectedSize: string;
 }
 

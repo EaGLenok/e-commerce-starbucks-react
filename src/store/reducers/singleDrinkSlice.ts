@@ -5,7 +5,15 @@ interface DrinkItem {
   id: number;
   name: string;
   description: string;
-  price: number;
+  flavor: string;
+  topping: string[];
+  priceSize?: {
+    SHORT?: number;
+    TALL?: number;
+    GRANDE?: number;
+    VENTI?: number;
+    [key: string]: number | undefined;
+  };
   date_added: string;
   imageUrl: string;
   count?: number;

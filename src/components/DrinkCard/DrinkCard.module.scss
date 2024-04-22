@@ -58,7 +58,21 @@
   flex-direction: row;
   justify-content: space-between;
 
-  button {
+  .counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    p {
+      font-size: 19px;
+    }
+
+    svg {
+      margin: 7px;
+    }
+  }
+
+  .add_to_basket {
     cursor: pointer;
     width: 134px;
     height: 41px;

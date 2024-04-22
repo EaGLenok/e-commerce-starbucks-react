@@ -17,12 +17,16 @@ export const sizeAndCountSlice = createSlice({
     selectSize: (state, action: PayloadAction<string>) => {
       state.selectedSize = action.payload;
     },
-    updateCount: (state, action: PayloadAction<number>) => {
-      state.count = action.payload;
+    DecrementCount: (state, action: PayloadAction<number>) => {
+      state.count -= 1;
+    },
+    IncrementCount: (state, action: PayloadAction<number>) => {
+      state.count += 1;
     },
   },
 });
 
-export const { selectSize, updateCount } = sizeAndCountSlice.actions;
+export const { selectSize, DecrementCount, IncrementCount } =
+  sizeAndCountSlice.actions;
 
 export default sizeAndCountSlice.reducer;
