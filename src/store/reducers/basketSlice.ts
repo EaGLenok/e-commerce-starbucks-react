@@ -30,12 +30,15 @@ export const basketSlice = createSlice({
         const existingItem = state.itemsBasket[existingItemIndex];
         const updatedItem = {
           ...existingItem,
+          size: (existingItem.size = action.payload.size),
+          price: (existingItem.price = action.payload.price),
           count: existingItem.count + action.payload.count,
         };
         state.itemsBasket.splice(existingItemIndex, 1, updatedItem);
       } else {
         state.itemsBasket.push({
           ...action.payload,
+          size: action.payload.size,
           count: action.payload.count,
         });
       }

@@ -5,7 +5,7 @@ interface DrinkItem {
   id: number;
   name: string;
   description: string;
-  price_per_size: {
+  priceSize: {
     SHORT: number;
     TALL: number;
     GRANDE: number;

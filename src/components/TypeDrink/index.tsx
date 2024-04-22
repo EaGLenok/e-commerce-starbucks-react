@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import s from "./TypeDrink.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { selectSize } from "../../store/reducers/sizeAndCountSlice";
@@ -7,70 +7,73 @@ const TypeDrink: React.FC = () => {
   const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const dispatch = useAppDispatch();
   const { selectedSize } = useAppSelector((state) => state.sizeAndCountSlice);
-  const [activeIndex, setActiveIndex] = useState(sizes.indexOf(selectedSize));
+  const [activeIndex, setActiveIndex] = useState(
+    sizes.indexOf(selectedSize) >= 0 ? sizes.indexOf(selectedSize) : 0
+  );
+  const sizesCardRef = useRef<HTMLDivElement>(null);
+  const [circleLeftPosition, setCircleLeftPosition] = useState("0px");
+  const optionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  const onSelectSize = (index: number) => {
-    dispatch(selectSize(sizes[index]));
-    setActiveIndex(index);
-  };
+  optionRefs.current = sizes.map((_, i) => optionRefs.current[i] ?? null);
 
-  const getCircleSize = (index: number) => {
-    const circleSizes = [60, 90, 70, 90]; // Размеры шарика для каждого размера
-    return circleSizes[index];
-  };
-
-  const getCirclePosition = (index: number) => {
-    const imageWidths = [32, 10, 51, 59]; // Ширины изображений для каждого размера
-    const spacing = 30; // Промежуток между изображениями
-    let position = 28; // Начальное положение для SHORT
-    for (let i = 0; i < index; i++) {
-      position += imageWidths[i] + spacing;
-    }
-    return position;
-  };
-
-  const getImageSrc = (size: string) => {
-    switch (size) {
-      case "SHORT":
-        return "https://i.imgur.com/b01OcrP.png";
-      case "TALL":
-        return "https://i.imgur.com/woDH6MH.png";
-      case "GRANDE":
-        return "https://i.imgur.com/p7XE5FO.png";
-      case "VENTI":
-        return "https://i.imgur.com/jx4nuve.png";
-      default:
-        return "";
+  const updateCirclePosition = () => {
+    const currentOption = optionRefs.current[activeIndex];
+    if (currentOption) {
+      const { left, width } = currentOption.getBoundingClientRect();
+      const { left: parentLeft } =
+        sizesCardRef.current!.getBoundingClientRect();
+      setCircleLeftPosition(`${left - parentLeft + width / 2 - 5 - 0.3}px`);
     }
   };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateCirclePosition);
+    return () => window.removeEventListener("resize", updateCirclePosition);
+  }, []);
+
+  useEffect(() => {
+    updateCirclePosition();
+  }, [activeIndex, sizes]);
+
+  useEffect(() => {
+    if (selectedSize === undefined || selectedSize === "") {
+      dispatch(selectSize(sizes[0]));
+    }
+    setActiveIndex(sizes.indexOf(selectedSize));
+  }, [selectedSize, dispatch, sizes]);
+
+  const onSelectSize = (size: string) => {
+    dispatch(selectSize(size));
+  };
+
+  const getImageSrc = (size: string) => "https://i.imgur.com/1UcyePM.png";
 
   return (
-    <div className={s.sizes_card}>
-      {sizes.map((size, index) => (
+    <div className={s.container}>
+      <h2 className={s.title}>Sizes Options</h2> {/* Добавлен заголовок */}
+      <div ref={sizesCardRef} className={s.sizesCard}>
+        {sizes.map((size, index) => (
+          <div
+            key={size}
+            ref={(el) => (optionRefs.current[index] = el)}
+            className={`${s.sizeOption} ${
+              activeIndex === index ? s.active : ""
+            }`}
+            onClick={() => onSelectSize(size)}
+          >
+            <img
+              src={getImageSrc(size)}
+              alt={`${size} size drink`}
+              className={s.drinkImage}
+            />
+            <p>{size}</p>
+          </div>
+        ))}
         <div
-          key={index}
-          className={`${s.size_option} ${
-            activeIndex === index ? s.active : s.no_active_size
-          }`}
-          onClick={() => onSelectSize(index)}
-        >
-          <img
-            src={getImageSrc(size)}
-            alt={`${size} drink`}
-            className={s.drink_image}
-          />
-          <p>{size}</p>
-        </div>
-      ))}
-      <div
-        className={s.circle}
-        style={{
-          width: `${getCircleSize(activeIndex)}px`,
-          height: `${getCircleSize(activeIndex)}px`,
-          left: `${getCirclePosition(activeIndex)}px`,
-          transition: "left 0.3s cubic-bezier(1, 0, 0, 1)",
-        }}
-      />
+          className={s.indicatorCircle}
+          style={{ left: circleLeftPosition }}
+        />
+      </div>
     </div>
   );
 };

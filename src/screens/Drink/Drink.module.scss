@@ -19,16 +19,13 @@
 
     .drink_size_container {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: red;
       flex-direction: column;
       width: 500px;
       height: 450px;
       .drink_sizes {
         display: flex;
         flex-direction: column;
-        width: 500px;
+        width: 200px;
         height: 325px;
       }
     }
@@ -64,4 +61,24 @@
       }
     }
   }
+}
+
+.drink_add_container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  p {
+    font-weight: bold;
+  }
+}
+
+.add_to_basket_btn {
+  width: 200px;
+  height: 51px;
+  margin-right: 30px;
+  background-color: rgba(55, 121, 87, 0.61);
+  border-radius: 24px;
+  border: none;
+  font-weight: bold;
 }

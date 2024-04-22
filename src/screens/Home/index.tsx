@@ -29,7 +29,7 @@ const Home: React.FC = () => {
               id={el.id}
               name={el.name}
               description={el.description}
-              priceSize={el.price_per_size}
+              priceSize={el.priceSize}
               imageUrl={el.imageUrl}
             />
           ))}

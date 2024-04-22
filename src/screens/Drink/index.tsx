@@ -67,8 +67,15 @@ const Drink: React.FC = () => {
         <div className={s.drink_size_container}>
           <div className={s.drink_sizes}>
             <TypeDrink />
-            <button>123</button>
-            <p>{drink.priceSize[selectedSize]}</p>
+            <div className={s.drink_add_container}>
+              <button
+                onClick={() => addToBasketFn()}
+                className={s.add_to_basket_btn}
+              >
+                Add to Basket
+              </button>
+              <p>${drink.priceSize[selectedSize]}</p>
+            </div>
           </div>
         </div>
         <div className={s.drink_choose_container}></div>
