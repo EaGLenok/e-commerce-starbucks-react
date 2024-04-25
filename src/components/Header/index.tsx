@@ -2,6 +2,8 @@ import React from "react";
 
 import s from "./Header.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../store/hooks";
+import { setCategory } from "../../store/reducers/templateDataSlice";
 
 interface HeaderProps {
   isBasketOpen: boolean;
@@ -9,6 +11,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ isBasketOpen, setBasketOpen }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
@@ -18,10 +21,10 @@ const Header: React.FC<HeaderProps> = ({ isBasketOpen, setBasketOpen }) => {
     <div className="header">
       <div className={s.header_container}>
         <div className={s.navigation_container}>
-          <p>COFFEE</p>
-          <p>TEA</p>
-          <p>MENU</p>
-          <p>DRINKS</p>
+          <p onClick={() => dispatch(setCategory("Coffee"))}>COFFEE</p>
+          <p onClick={() => dispatch(setCategory("Tea"))}>TEA</p>
+          <p onClick={() => dispatch(setCategory("all"))}>MENU</p>
+          <p onClick={() => dispatch(setCategory("Drinks"))}>DRINKS</p>
         </div>
         <div className={s.search_container}>
           <input

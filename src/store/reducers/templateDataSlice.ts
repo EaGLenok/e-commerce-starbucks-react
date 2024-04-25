@@ -5,6 +5,7 @@ interface templateData {
   currentIce: string;
   currentPumps: number;
   currentTopping: string;
+  category: string;
 }
 
 const initialState: templateData = {
@@ -12,6 +13,7 @@ const initialState: templateData = {
   currentIce: "Ice",
   currentPumps: 1,
   currentTopping: "None",
+  category: "all",
 };
 
 export const templateDataSlice = createSlice({
@@ -37,6 +39,9 @@ export const templateDataSlice = createSlice({
     selectTopping: (state, action: PayloadAction<string>) => {
       state.currentTopping = action.payload;
     },
+    setCategory: (state, action: PayloadAction<string>) => {
+      state.category = action.payload;
+    },
   },
 });
 
@@ -46,6 +51,7 @@ export const {
   incrementPumps,
   decrementPumps,
   selectTopping,
+  setCategory,
 } = templateDataSlice.actions;
 
 export default templateDataSlice.reducer;

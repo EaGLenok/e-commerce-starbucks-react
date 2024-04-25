@@ -20,13 +20,13 @@ const Drink: React.FC = () => {
 
   const { id } = useParams<string>();
   const { items } = useAppSelector((state) => state.drinksSlice);
-  const { selectedSize, currentIce, currentPumps, currentTopping } =
+  const { selectedSize, currentIce, currentPumps, currentTopping, category } =
     useAppSelector((state) => state.templateDataSlice);
 
   useEffect(() => {
     dispatch(fetchSingleDrink({ id: parseInt(id) }));
-    dispatch(fetchDrinks());
-  }, [dispatch, id]);
+    dispatch(fetchDrinks({ categoryParam: category }));
+  }, [dispatch, id, category]);
 
   const { item: drinks, status } = useAppSelector(
     (state) => state.singleDrinkSlice

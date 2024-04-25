@@ -28,12 +28,26 @@ const initialState: DrinksState = {
   status: "idle",
 };
 
-export const fetchDrinks = createAsyncThunk("drinks/fetchDrinks", async () => {
-  const response = await axios.get(
-    `https://65bb702652189914b5bc21bd.mockapi.io/starbucks-items/`
-  );
-  return response.data;
-});
+interface FetchDrinksParams {
+  categoryParam?: string;
+  page?: number;
+  limit?: number;
+}
+
+export const fetchDrinks = createAsyncThunk(
+  "drinks/fetchDrinks",
+  async (params: FetchDrinksParams) => {
+    const queryParams = new URLSearchParams({
+      category: params.categoryParam === "all" ? "" : params.categoryParam,
+      page: (params.page || 1).toString(),
+      limit: (params.limit || 7).toString(),
+    });
+    const url = `https://65bb702652189914b5bc21bd.mockapi.io/starbucks-items?${queryParams}`;
+
+    const response = await axios.get(url);
+    return response.data;
+  }
+);
 
 export const drinksSlice = createSlice({
   name: "drinks",

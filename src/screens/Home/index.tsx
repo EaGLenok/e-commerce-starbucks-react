@@ -7,10 +7,14 @@ import DrinkCard from "../../components/DrinkCard";
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.drinksSlice);
+  const { category } = useAppSelector((state) => state.templateDataSlice);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
 
   React.useEffect(() => {
-    dispatch(fetchDrinks());
-  }, [dispatch]);
+    dispatch(
+      fetchDrinks({ categoryParam: category, page: currentPage, limit: 7 })
+    );
+  }, [dispatch, category, currentPage]);
 
   return (
     <div className={s.home}>
@@ -26,6 +30,7 @@ const Home: React.FC = () => {
             <DrinkCard
               key={el.name + index}
               id={el.id}
+              еу
               name={el.name}
               description={el.description}
               priceSize={el.priceSize}
