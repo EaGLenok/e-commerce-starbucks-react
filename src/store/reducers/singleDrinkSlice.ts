@@ -6,7 +6,7 @@ interface DrinkItem {
   name: string;
   description: string;
   flavor: string;
-  topping: string[];
+  toppings: string[];
   priceSize?: {
     SHORT?: number;
     TALL?: number;

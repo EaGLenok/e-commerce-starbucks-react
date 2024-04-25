@@ -1,28 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import s from "./TypeDrink.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { selectSize } from "../../store/reducers/sizeAndCountSlice";
+import { selectSize } from "../../store/reducers/templateDataSlice";
 
 const TypeDrink: React.FC = () => {
   const sizes = ["SHORT", "TALL", "GRANDE", "VENTI"];
   const dispatch = useAppDispatch();
-  const { selectedSize } = useAppSelector((state) => state.sizeAndCountSlice);
+  const { selectedSize } = useAppSelector((state) => state.templateDataSlice);
   const [activeIndex, setActiveIndex] = useState(
     sizes.indexOf(selectedSize) >= 0 ? sizes.indexOf(selectedSize) : 0
   );
   const sizesCardRef = useRef<HTMLDivElement>(null);
   const [circleLeftPosition, setCircleLeftPosition] = useState("0px");
   const optionRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const [lineLeftPosition, setLineLeftPosition] = useState("0px");
 
   optionRefs.current = sizes.map((_, i) => optionRefs.current[i] ?? null);
-
   const updateCirclePosition = () => {
     const currentOption = optionRefs.current[activeIndex];
-    if (currentOption) {
+    if (currentOption && sizesCardRef.current) {
       const { left, width } = currentOption.getBoundingClientRect();
-      const { left: parentLeft } =
-        sizesCardRef.current!.getBoundingClientRect();
-      setCircleLeftPosition(`${left - parentLeft + width / 2 - 5 - 0.3}px`);
+      const { left: parentLeft } = sizesCardRef.current.getBoundingClientRect();
+      const circleOffset = 5 + 0.4;
+      setCircleLeftPosition(
+        `${left - parentLeft + width / 2 - circleOffset}px`
+      );
+
+      const additionalLeftOffset = 13;
+      const lineOffset = circleOffset - width / 2 + additionalLeftOffset;
+      setLineLeftPosition(`${left - parentLeft - lineOffset}px`);
     }
   };
 
@@ -50,7 +56,7 @@ const TypeDrink: React.FC = () => {
 
   return (
     <div className={s.container}>
-      <h2 className={s.title}>Sizes Options</h2> {/* Добавлен заголовок */}
+      <h1 className={s.title}>Sizes Options</h1>
       <div ref={sizesCardRef} className={s.sizesCard}>
         {sizes.map((size, index) => (
           <div
@@ -66,12 +72,21 @@ const TypeDrink: React.FC = () => {
               alt={`${size} size drink`}
               className={s.drinkImage}
             />
-            <p>{size}</p>
+            <div className={s.size_option_container}>
+              <p>{size}</p>
+            </div>
           </div>
         ))}
         <div
           className={s.indicatorCircle}
           style={{ left: circleLeftPosition }}
+        />
+        <div
+          className={s.movingLine}
+          style={{
+            left: lineLeftPosition,
+            width: `${optionRefs.current[activeIndex]?.clientWidth}px`,
+          }}
         />
       </div>
     </div>

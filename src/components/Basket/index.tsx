@@ -4,6 +4,7 @@ import { useAppSelector } from "../../store/hooks";
 import BasketItem from "../BasketItem";
 import CloseIcon from "@mui/icons-material/Close";
 import sorrySvg from "../../assets/icons8-sad-smile-96.png";
+import { Link } from "react-router-dom";
 
 interface BasketProps {
   isBasketOpen: boolean;
@@ -23,6 +24,10 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
     setBasketOpen(!isBasketOpen);
   };
 
+  const reducedPrice = () => {
+    return itemsBasket.reduce((acc, item) => acc + item.price * item.count, 0);
+  };
+
   return (
     <div
       onClick={(e) => handlerStopPropagation(e)}
@@ -35,6 +40,7 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
         </div>
       )}
       <div className={s.basket_content}>
+        {itemsBasket.length !== 0 && <h1>BASKET</h1>}
         <div className={s.basket_item}>
           {itemsBasket.length > 0 &&
             itemsBasket.map((el, index) => (
@@ -46,14 +52,47 @@ const Basket: React.FC<BasketProps> = ({ isBasketOpen, setBasketOpen }) => {
                 imageUrl={el.imageUrl}
                 count={el.count}
                 selectedSize={el.size}
+                currentIce={el.currentIce}
+                currentPumps={el.currentPumps}
+                flavor={el.flavor}
+                currentTopping={el.currentTopping}
                 key={index}
               />
             ))}
         </div>
       </div>
-      <div className={s.basket_close}>
-        <CloseIcon onClick={onCloseFn} color="action" />
-      </div>
+
+      {itemsBasket.length >= 1 && (
+        <div className={s.basket_checkout}>
+          <div className={s.information_container}>
+            <div className={s.names_container}>
+              <p>
+                Products <span>({itemsBasket.length}) </span>
+              </p>
+              <p>Delivery</p>
+            </div>
+            <div className={s.values_container}>
+              <p className={s.products_value}>{reducedPrice()}$</p>
+              <p className={s.delivery_price}>Free</p>
+            </div>
+          </div>
+          <div className={s.total_price_container}>
+            <div className={s.price_name}>
+              <p>Order price</p>
+            </div>
+            <div className={s.price_value}>
+              {" "}
+              <p>{reducedPrice()}$</p>
+            </div>
+          </div>
+
+          <div className={s.button_container}>
+            <Link to="/checkout">
+              <button className={s.checkout_btn}>GO TO CHECKOUT</button>
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

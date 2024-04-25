@@ -9,6 +9,8 @@ interface DrinkCardProps {
   name: string;
   description: string;
   imageUrl: string;
+  flavor: string;
+  toppings: string[];
   priceSize: {
     SHORT: number;
     TALL: number;
@@ -23,6 +25,8 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
   description,
   imageUrl,
   priceSize,
+  flavor,
+  toppings,
 }) => {
   const dispatch = useAppDispatch();
   const [count, setCount] = useState<number>(1);
@@ -35,7 +39,11 @@ const DrinkCard: React.FC<DrinkCardProps> = ({
       imageUrl,
       price: priceSize.SHORT,
       count,
+      flavor,
       size: "SHORT",
+      currentIce: "Ice",
+      currentPumps: 1,
+      currentTopping: toppings[1],
     };
     dispatch(addToBasket(obj));
     console.log(obj);

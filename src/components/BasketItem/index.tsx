@@ -16,6 +16,10 @@ interface BasketItemProps {
   count: number;
   price: number;
   selectedSize: string;
+  flavor: string;
+  currentIce: string;
+  currentPumps: number;
+  currentTopping: string;
 }
 
 const BasketItem: React.FC<BasketItemProps> = ({
@@ -25,6 +29,10 @@ const BasketItem: React.FC<BasketItemProps> = ({
   price,
   imageUrl,
   selectedSize,
+  flavor,
+  currentIce,
+  currentPumps,
+  currentTopping,
 }) => {
   const { count } = useAppSelector((state) =>
     state.basketSlice.itemsBasket.find((item) => item.id === id)
@@ -37,83 +45,58 @@ const BasketItem: React.FC<BasketItemProps> = ({
     return fixedNumber;
   };
 
+  const objToPush = {
+    id,
+    name,
+    description,
+    price,
+    imageUrl,
+    count,
+    size: selectedSize,
+    currentIce,
+    currentPumps,
+    flavor,
+    currentTopping,
+  };
+
   const handleIncrement = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(
-      IncrementItem({
-        id,
-        name,
-        description,
-        price,
-        imageUrl,
-        count,
-        size: selectedSize,
-      })
-    );
+    dispatch(IncrementItem(objToPush));
   };
 
   const handleDecrement = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (count > 1) {
-      dispatch(
-        DecrementItem({
-          id,
-          name,
-          description,
-          price,
-          imageUrl,
-          count,
-          size: selectedSize,
-        })
-      );
+      dispatch(DecrementItem(objToPush));
     }
   };
 
   const handleRemove = (event: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(
-      removeFromBasket({
-        id,
-        name,
-        description,
-        price,
-        imageUrl,
-        count,
-        size: selectedSize,
-      })
-    );
+    dispatch(removeFromBasket(objToPush));
   };
 
   return (
-    <div className={s.basket_items}>
-      <div className={s.basket_item}>
-        <div className={s.image_container}>
-          <img width={100} height={100} src={imageUrl} alt={imageUrl} />
+    <div className={s.basket_item}>
+      <div className={s.upper_container}>
+        <img src={imageUrl} alt={name} className={s.item_image} />
+        <div className={s.item_info}>
+          <h3 className={s.item_name}>{name}</h3>
+          <p className={s.item_size}>{selectedSize}</p>
+          <p className={s.item_currentIce}>{currentIce}</p>
+          <p className={s.item_currentTopping}>{currentTopping}</p>
+          <p className={s.item_currentPumps}>
+            {" "}
+            {flavor} (x{currentPumps})
+          </p>
         </div>
-        <div className={s.item_details}>
-          <h4>{name}</h4>
-          <h5>${reducedPrice()}</h5>
-          <p>{selectedSize}</p>
-          <div className={s.quantity_container}>
-            <button
-              onClick={(e) => handleDecrement(e)}
-              className={s.button_quantity}
-            >
-              -
-            </button>
-            <p className={s.item_count}>{count}</p>
-            <button
-              onClick={(e) => handleIncrement(e)}
-              className={s.button_quantity}
-            >
-              +
-            </button>
-          </div>
-
-          <div className={s.remove_container}>
-            <button onClick={(e) => handleRemove(e)}>Remove</button>
-          </div>
+      </div>
+      <div className={s.down_container}>
+        <div className={s.price_container}>{reducedPrice()} $</div>
+        <div className={s.quantity_container}>
+          <button onClick={handleDecrement}>-</button>
+          <p className={s.item_count}>{count}</p>
+          <button onClick={handleIncrement}>+</button>
         </div>
       </div>
     </div>
   );
 };
-
 export default BasketItem;

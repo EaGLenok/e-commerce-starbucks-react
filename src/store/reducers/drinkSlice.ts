@@ -5,6 +5,8 @@ interface DrinkItem {
   id: number;
   name: string;
   description: string;
+  flavor: string;
+  toppings: string[];
   priceSize: {
     SHORT: number;
     TALL: number;

@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   font-family: "Kanit", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -11,56 +11,60 @@
 .header_container {
   display: flex;
   align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 200px;
-
   width: 100%;
+}
 
-  .logo_container {
-    margin-left: 50px;
-  }
-
-  .search_container {
-    width: 460px;
-    height: 44px;
-    border-radius: 45px;
-    border: 1px solid black;
-    padding-left: 10px;
-
-    input {
-      color: black;
-      outline: none;
-      overflow: none;
-      border: none;
-      background-color: transparent;
-      height: 44px;
-      width: 460px;
-      &::placeholder {
-        color: black;
-      }
-    }
-  }
+.logo_container {
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigation_container {
   display: flex;
-  width: 400px;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
   p {
     font-size: 25px;
-    margin-right: 30px;
+    margin: 0 20px;
+  }
+}
+
+.search_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 460px;
+  height: 44px;
+  border-radius: 45px;
+  border: 1px solid black;
+  padding-left: 10px;
+  input {
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    &::placeholder {
+      color: black;
+    }
   }
 }
 
 .basket_container {
   display: flex;
   align-items: center;
-  margin-left: 350px;
+  justify-content: center;
   width: 400px;
   font-size: 25px;
+  cursor: pointer;
 
   p {
-    margin-right: 13px;
+    margin: 10px;
   }
 }

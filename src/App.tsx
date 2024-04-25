@@ -5,6 +5,7 @@ import Home from "./screens/Home";
 import s from "./App.module.scss";
 import Basket from "./components/Basket";
 import Drink from "./screens/Drink";
+import Checkout from "./screens/Checkout";
 
 function App() {
   const [isBasketOpen, setBasketOpen] = React.useState(false);
@@ -27,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<Drink />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </div>
       </div>

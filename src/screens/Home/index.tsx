@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import s from "./Home.module.scss";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchDrinks } from "../../store/reducers/drinkSlice";
-import { addToBasket } from "../../store/reducers/basketSlice";
 import DrinkCard from "../../components/DrinkCard";
 
 const Home: React.FC = () => {
@@ -31,6 +30,8 @@ const Home: React.FC = () => {
               description={el.description}
               priceSize={el.priceSize}
               imageUrl={el.imageUrl}
+              flavor={el.flavor}
+              toppings={el.toppings}
             />
           ))}
         </div>

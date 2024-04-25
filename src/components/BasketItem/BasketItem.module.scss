@@ -1,70 +1,91 @@
 .basket_item {
   margin-top: 25px;
   display: flex;
-  flex-direction: row;
-  width: 220px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
   height: 170px;
   background-color: transparent;
+  border-radius: 14px;
+  border: 1px solid #c2c2c2;
+}
 
-  .image_container {
+.image_container {
+  margin: 0px;
+  img {
     margin: 0px;
-    img {
-      margin: 0px;
-    }
   }
 }
 
-.item_details {
+.upper_container {
+  margin: 5px;
+  border-bottom: 1.5px solid black;
   display: flex;
-  flex-direction: column;
-  color: white;
-  h4 {
-    font-size: 20px;
-    max-width: 110px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: black;
+  flex-direction: row;
+  align-items: center;
+  width: 436px;
+  height: 120px;
+
+  img {
+    width: 62px;
+    height: 72px;
   }
-  h5 {
+  .item_info {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .item_name {
     font-size: 17px;
-    color: #979797e7;
+    font-weight: bold;
   }
-  p {
+  .item_size {
     font-size: 14px;
-    color: #b3b0b0e7;
+    color: #666;
   }
-  .quantity_container {
+}
+
+.down_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 436px;
+  height: 45px;
+
+  p {
+    margin: 0px;
+  }
+}
+
+.price_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.quantity_container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+  button {
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    border-radius: 1px;
+    border: none;
+    margin: 0 5px;
+  }
+  .item_count {
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e7e7e7;
     display: flex;
     align-items: center;
-    flex-direction: row;
-    width: 100%;
-    height: 40px;
-    .item_count {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 5px;
-      font-size: 16px;
-      width: 30px;
-      height: 30px;
-      border: 1px solid #e7e7e7e7;
-    }
-    button {
-      width: 30px;
-      height: 30px;
-      border-radius: 1px;
-      border: none;
-      padding: 0px 0px 5px 0px;
-    }
-  }
-}
-
-.remove_container {
-  button {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    color: red;
+    justify-content: center;
   }
 }

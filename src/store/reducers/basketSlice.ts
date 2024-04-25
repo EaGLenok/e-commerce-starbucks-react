@@ -6,8 +6,12 @@ interface DrinkItem {
   description: string;
   price: number;
   imageUrl: string;
+  flavor: string;
   count: number;
   size: string;
+  currentIce: string;
+  currentPumps: number;
+  currentTopping: string;
 }
 
 interface DrinksState {
@@ -30,6 +34,11 @@ export const basketSlice = createSlice({
         const existingItem = state.itemsBasket[existingItemIndex];
         const updatedItem = {
           ...existingItem,
+          currentTopping: (existingItem.currentTopping =
+            action.payload.currentTopping),
+          currentIce: (existingItem.currentIce = action.payload.currentIce),
+          currentPumps: (existingItem.currentPumps =
+            action.payload.currentPumps),
           size: (existingItem.size = action.payload.size),
           price: (existingItem.price = action.payload.price),
           count: existingItem.count + action.payload.count,
@@ -38,6 +47,9 @@ export const basketSlice = createSlice({
       } else {
         state.itemsBasket.push({
           ...action.payload,
+          currentTopping: action.payload.currentTopping,
+          currentPumps: action.payload.currentPumps,
+          currentIce: action.payload.currentIce,
           size: action.payload.size,
           count: action.payload.count,
         });
@@ -66,7 +78,7 @@ export const basketSlice = createSlice({
           ...existingItem,
           count: existingItem.count + 1,
         };
-        state.itemsBasket.splice(existingItemIndex, 1, updatedItem); // Обновляем элемент в массиве
+        state.itemsBasket.splice(existingItemIndex, 1, updatedItem);
       }
     },
     DecrementItem(state, action: PayloadAction<DrinkItem>) {
@@ -80,7 +92,7 @@ export const basketSlice = createSlice({
             ...existingItem,
             count: existingItem.count - 1,
           };
-          state.itemsBasket.splice(existingItemIndex, 1, updatedItem); // Обновляем элемент в массиве
+          state.itemsBasket.splice(existingItemIndex, 1, updatedItem);
         }
       }
     },
